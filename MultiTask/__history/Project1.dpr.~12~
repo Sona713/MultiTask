@@ -58,6 +58,14 @@ begin
     WaitForMultipleObjects(Length(ThreadHandles), @ThreadHandles[0], True, INFINITE);
     for I:= 0 to High(FTasks) do
     begin
+     {try
+       Writeln('Task ', I, ' result: ', FTasks[I].Result)
+
+      except
+        on E: Exception do
+         Writeln('Error in Task ',I,': ', E.Message);
+
+     end;   }
       if FTasks[I].FatalException <> nil then
         Writeln('Error in Task ',I,': ', Exception(FTasks[I].Fatalexception).Message)
       else
